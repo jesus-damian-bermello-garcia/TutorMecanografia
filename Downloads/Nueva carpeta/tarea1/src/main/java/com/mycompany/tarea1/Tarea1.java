@@ -116,7 +116,11 @@ public class Tarea1 {
             double percentajeCorrecto = (double) respuestascorrectas / totalpreguntas * 100;
             System.out.println("Has respondido correctamente al " + decimalFormat.format(percentajeCorrecto) + "% de las preguntas.");
             
-           
+            if (percentajeCorrecto < 75) {
+                System.out.println("Por favor pide ayuda adicional a tu Instructor.");
+            } else {
+                System.out.println("¡Felicidades, estás listo para pasar al siguiente nivel!");
+            }
             
             totalestudiantes++;
             
