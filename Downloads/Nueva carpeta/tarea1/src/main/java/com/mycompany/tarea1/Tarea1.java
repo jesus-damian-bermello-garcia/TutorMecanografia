@@ -99,7 +99,18 @@ public class Tarea1 {
                 
                 double respuestausuario = scanner.nextDouble();
                 
-
+                if (Math.abs(respuestausuario - respuestacorrecta) < 0.01) {
+                    int feedbackIndex = random.nextInt(respuestapositiva.length);
+                    System.out.println(respuestapositiva[feedbackIndex]);
+                    respuestascorrectas++;
+                } else {
+                    while (Math.abs(respuestausuario - respuestacorrecta) >= 0.01) {
+                        int respuestaIndex = random.nextInt(respuestanegativa.length);
+                        System.out.println(respuestanegativa[respuestaIndex]);
+                        respuestausuario = scanner.nextDouble();
+                        respuestasincorrectas++;
+                    }
+                }
             }
             
           
