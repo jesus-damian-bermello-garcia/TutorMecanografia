@@ -117,6 +117,18 @@ public class Tarea1 {
             System.out.println("Has respondido correctamente al " + decimalFormat.format(percentajeCorrecto) + "% de las preguntas.");
             
            
+            
+            totalestudiantes++;
+            
+            if (totalestudiantes < 2) {
+                System.out.println("¿Deseas permitir que otro estudiante pruebe el test? (1 para sí, 2 para no):");
+                int anotherStudent = scanner.nextInt();
+                if (anotherStudent != 1) {
+                    break;
+                }
+            } else {
+                break;
+            }
         } while (true);
     }
     
