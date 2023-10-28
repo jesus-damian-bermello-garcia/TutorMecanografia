@@ -113,7 +113,10 @@ public class Tarea1 {
                 }
             }
             
-          
+            double percentajeCorrecto = (double) respuestascorrectas / totalpreguntas * 100;
+            System.out.println("Has respondido correctamente al " + decimalFormat.format(percentajeCorrecto) + "% de las preguntas.");
+            
+           
         } while (true);
     }
     
