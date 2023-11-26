@@ -9,7 +9,7 @@ package com.mycompany.impactoecologico;
 
 /**
  *
- * @author ASUS
+ * @author damian
  */
 public class ImpactoEcologico {
     public static void main(String[] args) {
