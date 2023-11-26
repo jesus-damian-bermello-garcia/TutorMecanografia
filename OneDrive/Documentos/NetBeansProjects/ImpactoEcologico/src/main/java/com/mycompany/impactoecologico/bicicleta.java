@@ -8,7 +8,7 @@ package com.mycompany.impactoecologico;
  *
  * @author damian
  */
-class bicicleta {
+class bicicleta implements interfazImpactoEcologico  {
     private String marca;
     private String modelo;
     private String tipoBicicleta;
@@ -19,6 +19,19 @@ class bicicleta {
         this.tipoBicicleta = tipoBicicleta;
     }   
 
-   
-}
+        
+    @Override
+    public double obtenerImpactoEcologico() {
+        // Fórmula simplificada del cálculo de la huella de carbono para bicicletas (considerando calorías quemadas)
+        double caloriasQuemadas = 500; // Cantidad de calorías quemadas durante el uso (ejemplo)
+        double factorEmision = 0.01; // Factor de emisión de ejemplo (debería ajustarse según el tipo de alimento consumido)
+        return caloriasQuemadas * factorEmision;
+    }
 
+    @Override
+    public String toString() {
+        return "Bicicleta: " + marca + " " + modelo;
+    }
+
+     
+}

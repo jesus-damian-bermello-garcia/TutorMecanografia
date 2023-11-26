@@ -8,8 +8,8 @@ package com.mycompany.impactoecologico;
  *
  * @author damian
  */
-public class edificio {
-    private String nombre;
+class edificio implements interfazImpactoEcologico{
+     private String nombre;
     private double energiaIluminacion; // en kilovatios por hora
     private int numVentanas;
     private int fechaConstruccion;
@@ -20,4 +20,18 @@ public class edificio {
         this.numVentanas = numVentanas;
         this.fechaConstruccion = fechaConstruccion;
     }
+
+    
+    @Override
+    public double obtenerImpactoEcologico() {
+        // Fórmula simplificada del cálculo de la huella de carbono
+        double factorEmision = 0.5; // Factor de emisión de ejemplo (debería ajustarse según la fuente de energía utilizada)
+        return energiaIluminacion * factorEmision;
+    }
+
+     @Override
+    public String toString() {
+        return "Edificio: " + nombre;
+    }
+  
 }

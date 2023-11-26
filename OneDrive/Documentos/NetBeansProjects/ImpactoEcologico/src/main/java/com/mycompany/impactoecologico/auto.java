@@ -8,7 +8,7 @@ package com.mycompany.impactoecologico;
  *
  * @author damian
  */
-class auto {
+class auto implements interfazImpactoEcologico {
     private String marca;
     private String modelo;
     private int año;
@@ -22,5 +22,18 @@ class auto {
         this.tipoCombustible = tipoCombustible;
         this.cantidadCombustible = cantidadCombustible;
     }
+
+   @Override
+    public double obtenerImpactoEcologico() {
+        // Fórmula simplificada del cálculo de la huella de carbono
+        double factorEmision = 2.3; // Factor de emisión de ejemplo (debería ajustarse según el tipo de combustible)
+        return cantidadCombustible * factorEmision;
+    }
+
+   @Override
+    public String toString() {
+        return "Auto: " + marca + " " + modelo;
+    }
+  
 }
 
