@@ -85,6 +85,10 @@ public class ExploradorDePhishing {
                     }
                 }
             }
+                // Paso 5: Mostrar el total de puntos
+            System.out.println("Total de puntos para todo el mensaje: " + totalPuntos);
+
+        } catch (IOException e) {
         }
     }
     // Método para contar ocurrencias de una palabra clave en una línea
