@@ -4,6 +4,9 @@
 
 package com.mycompany.exploradordephishing;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,6 +49,21 @@ public class ExploradorDePhishing {
         palabrasClave.put("haga clic aqui para instalar la última Version de ", 3);        
         palabrasClave.put("no te pierdas esta oferta unica en la vida", 3);        
         palabrasClave.put("haga clic en el enlace", 3);
-                
+        
+// Paso 2: Leer el archivo de texto
+        String rutaArchivo = "Correos-Phishing.txt";  //ruta del archivo
+        int totalPuntos = 0;  
+        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
+            String linea;
+
+            // Leer y mostrar cada línea del archivo
+            while ((linea = br.readLine()) != null) {
+                System.out.println(linea);
+            }
+
+        } catch (IOException e) {
+            // Manejar errores de lectura de archivo
+
+        }
     }
 }
