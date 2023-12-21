@@ -5,6 +5,7 @@
 package com.mycompany.exploradordephishing;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,7 +17,7 @@ import java.util.Map;
  */
 public class ExploradorDePhishing {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         // Paso 1: Crear la lista de palabras clave y asignar puntos
         Map<String, Integer> palabrasClave = new HashMap<>();
         palabrasClave.put("validar", 1);
@@ -64,6 +65,32 @@ public class ExploradorDePhishing {
         } catch (IOException e) {
             // Manejar errores de lectura de archivo
 
-        }
+        System.out.println("========================================================================");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
+            String linea ;
+            
+             
+                // Paso 3: Buscar ocurrencias de palabras clave en cada línea
+                while ((linea = br.readLine()) != null) {
+                for (Map.Entry<String, Integer> entry : palabrasClave.entrySet()) {
+                    String palabraClave = entry.getKey().toLowerCase();
+                    int puntos = entry.getValue();
+                    int ocurrencias = contarOcurrencias(linea.toLowerCase(), palabraClave);
+
+                    // Paso 4: Agregar puntos y mostrar información
+                    if (ocurrencias > 0) {
+                        totalPuntos += ocurrencias * puntos;
+                        System.out.println(palabraClave + ": " + ocurrencias + " ocurrencias - Puntos: " + ocurrencias * puntos);
+                    }
+                }
+            }
+
+        }   
+    }
+    }
+
+    private static int contarOcurrencias(String toLowerCase, String palabraClave) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
