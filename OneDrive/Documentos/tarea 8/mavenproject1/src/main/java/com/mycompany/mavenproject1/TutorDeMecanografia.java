@@ -4,7 +4,10 @@
 
 package com.mycompany.mavenproject1;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.HashSet;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -52,5 +55,19 @@ public class TutorDeMecanografia extends JFrame {
         }
         
         cargarPangramasDesdeArchivo("pangramas.txt")
+        
+        pulsacionesCorrectas = new ArrayList<>();
+        pulsacionesIncorrectas = new ArrayList<>();
+        teclasProblematicas = new HashSet<>();
+
+        // Mostrar un pangrama aleatorio al inicio
+        mostrarPangramaAleatorio();
+
+        // Agregar componentes al JFrame
+        add(textArea, BorderLayout.CENTER);
+        add(pangramaLabel, BorderLayout.NORTH);
+        add(imprimirButton, BorderLayout.EAST);
+        add(keyboardPanel, BorderLayout.SOUTH);
     }
 }
+
