@@ -50,5 +50,7 @@ public class TutorDeMecanografia extends JFrame {
             keyButton.addMouseListener(new KeyButtonMouseListener());
             keyboardPanel.add(keyButton);
         }
+        
+        cargarPangramasDesdeArchivo("pangramas.txt")
     }
 }
