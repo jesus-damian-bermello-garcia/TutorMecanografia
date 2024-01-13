@@ -5,7 +5,12 @@
 package com.mycompany.mavenproject1;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 import javax.swing.JButton;
@@ -60,14 +65,53 @@ public class TutorDeMecanografia extends JFrame {
         pulsacionesIncorrectas = new ArrayList<>();
         teclasProblematicas = new HashSet<>();
 
-        // Mostrar un pangrama aleatorio al inicio
         mostrarPangramaAleatorio();
 
-        // Agregar componentes al JFrame
         add(textArea, BorderLayout.CENTER);
         add(pangramaLabel, BorderLayout.NORTH);
         add(imprimirButton, BorderLayout.EAST);
         add(keyboardPanel, BorderLayout.SOUTH);
     }
-}
+
+
+    private class KeyButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton sourceButton = (JButton) e.getSource();
+            String keyChar = sourceButton.getText();
+            verificarTecla(keyChar.charAt(0));
+        }
+    }
+
+    
+    private class KeyButtonMouseListener extends MouseAdapter {
+        @Override
+        public void mousePressed(MouseEvent e) {
+            JButton sourceButton = (JButton) e.getSource();
+            String keyChar = sourceButton.getText();
+            
+            sourceButton.setBackground(Color.GREEN);
+
+            if (keyChar.equals("Espacio")) {
+                textArea.append(" ");
+            } else {
+                textArea.append(keyChar);
+            }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            JButton sourceButton = (JButton) e.getSource();
+
+            sourceButton.setBackground(null);
+        }
+    }
+
+    private class ImprimirButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            imprimirResultados();
+            System.exit(0); 
+        }
+    }
 
