@@ -4,33 +4,39 @@
 
 package com.mycompany.mavenproject1;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
-
+import java.util.List;
+import java.util.Set;
 /**
  *
  * @author Damian BG
  */
 public class TutorDeMecanografia extends JFrame {
-    
+
     private JTextArea textArea;
     private JLabel pangramaLabel;
     private JButton imprimirButton;
 
-    public TutorMecanografia() {
+    private List<String> pangramas;
+    private String pangramaActual;
+
+    private int posicionActualPangrama;
+    private int posicionActualTecla;
+
+    private List<Character> pulsacionesCorrectas;
+    private List<Character> pulsacionesIncorrectas;
+    private Set<Character> teclasProblematicas;
+
+    public TutorDeMecanografia() {
+
         setTitle("Tutor de Mecanografía");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 400);
@@ -58,9 +64,10 @@ public class TutorDeMecanografia extends JFrame {
             keyButton.addMouseListener(new KeyButtonMouseListener());
             keyboardPanel.add(keyButton);
         }
-        
-        cargarPangramasDesdeArchivo("pangramas.txt")
-        
+
+ 
+        cargarPangramasDesdeArchivo("pangramas.txt");
+
         pulsacionesCorrectas = new ArrayList<>();
         pulsacionesIncorrectas = new ArrayList<>();
         teclasProblematicas = new HashSet<>();
@@ -73,23 +80,23 @@ public class TutorDeMecanografia extends JFrame {
         add(keyboardPanel, BorderLayout.SOUTH);
     }
 
-
     private class KeyButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton sourceButton = (JButton) e.getSource();
             String keyChar = sourceButton.getText();
+
             verificarTecla(keyChar.charAt(0));
         }
     }
 
-    
+
     private class KeyButtonMouseListener extends MouseAdapter {
         @Override
         public void mousePressed(MouseEvent e) {
             JButton sourceButton = (JButton) e.getSource();
             String keyChar = sourceButton.getText();
-            
+
             sourceButton.setBackground(Color.GREEN);
 
             if (keyChar.equals("Espacio")) {
@@ -114,4 +121,69 @@ public class TutorDeMecanografia extends JFrame {
             System.exit(0); 
         }
     }
+
+
+    private void cargarPangramasDesdeArchivo(String nombreArchivo) {
+        pangramas = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                pangramas.add(linea);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Collections.shuffle(pangramas);
+    }
+
+    private void mostrarPangramaAleatorio() {
+        if (!pangramas.isEmpty()) {
+            pangramaActual = pangramas.get(0);
+            pangramaLabel.setText(pangramaActual);
+
+            posicionActualPangrama = 0;
+            posicionActualTecla = 0;
+        }
+    }
+
+    private void verificarTecla(char tecla) {
+        if (pangramaActual != null && posicionActualPangrama < pangramaActual.length()) {
+            char charPangrama = pangramaActual.charAt(posicionActualPangrama);
+
+            if (tecla == charPangrama) {
+                pulsacionesCorrectas.add(tecla);
+            } else {
+                pulsacionesIncorrectas.add(tecla);
+                teclasProblematicas.add(charPangrama);
+            }
+
+            posicionActualPangrama++;
+
+            if (posicionActualPangrama == pangramaActual.length()) {
+                mostrarPangramaAleatorio();
+            }
+        }
+    }
+
+    private void imprimirResultados() {
+        System.out.println("Resultados:");
+        System.out.println("Pangrama: " + pangramaActual);
+        System.out.println("Pulsaciones Correctas: " + pulsacionesCorrectas.size() + " - " + pulsacionesCorrectas);
+        if (!pulsacionesIncorrectas.isEmpty()) {
+            System.out.println("Pulsaciones Incorrectas: " + pulsacionesIncorrectas);
+        }
+        if (!teclasProblematicas.isEmpty()) {
+            System.out.println("Teclas Problemáticas: " + teclasProblematicas);
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            TutorDeMecanografia tutor = new TutorDeMecanografia();
+            tutor.setVisible(true);
+        });
+    }
+}
 
